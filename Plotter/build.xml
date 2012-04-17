@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Plotter" default="package">
+	<property file="../mail.properties" />
+
+	<target name="package">
+		<zip destfile="FIT_9202_Mezin_${ant.project.name}.zip">
+			<zipfileset dir="." includes="src/**" />
+			<zipfileset dir="../Common" includes="src/**" />
+		</zip>
+	</target>
+
+	<target name="send" depends="package">
+		<mail subject="FIT 9202 Mezin ${ant.project.name}" user="${mail.user}" password="${mail.password}" mailhost="${mail.host}" mailport="${mail.port}" ssl="${mail.ssl}" enableStartTLS="${mail.tls}">
+			<from address="${mail.from}" />
+			<to address="gorodilovm@gmail.com" />
+			<attachments>
+				<fileset dir=".">
+					<include name="FIT_9202_Mezin_${ant.project.name}.zip" />
+				</fileset>
+			</attachments>
+		</mail>
+	</target>
+</project>
