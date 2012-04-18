@@ -76,7 +76,7 @@ public class ValidatingSpinnerNumberEditor<T extends Comparable<T>> extends
 	}
 
 	private void initialize() {
-		setInputVerifier(validator);
+		getTextField().setInputVerifier(validator);
 
 		getTextField().addKeyListener(new KeyAdapter() {
 			@Override
