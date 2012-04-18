@@ -245,10 +245,7 @@ public class PlotterPanel extends RenderPanel {
 	private int findStartY(int x, int y, boolean down) {
 		int dir = down ? -1 : 1;
 
-		int last = 1;
-		while (func(x, y + last * dir) < 0) {
-			last *= 2;
-		}
+		int last = settings.getR().getValue();
 
 		int first = 0;
 		while (first < last) {
