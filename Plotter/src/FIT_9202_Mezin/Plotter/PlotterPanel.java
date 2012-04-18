@@ -94,9 +94,10 @@ public class PlotterPanel extends RenderPanel {
 	private static final int Y_COLOR = Color.RED.getRGB();
 
 	private static final Color P1_COLOR = Color.GREEN;
-	private static final Color P2_COLOR = Color.MAGENTA;
+	private static final Color P2_COLOR = Color.ORANGE;
 
 	private static final int PLOT_COLOR = Color.BLACK.getRGB();
+	private static final int PLOT_SYMMETRIC_COLOR = Color.MAGENTA.getRGB();
 
 	private static final Point[] CLOCKWISE = new Point[] { new Point(-1, 1),
 			new Point(0, 1), new Point(1, 1), new Point(1, 0),
@@ -184,7 +185,7 @@ public class PlotterPanel extends RenderPanel {
 
 			int x2 = focus[0].getX() - x + focus[1].getX();
 			int y2 = focus[0].getY() - y + focus[1].getY();
-			setRGB(x2, y2, PLOT_COLOR);
+			setRGB(x2, y2, PLOT_SYMMETRIC_COLOR);
 
 			dir = findBestDirection(dir, x, y);
 			if (dir == -1) {
