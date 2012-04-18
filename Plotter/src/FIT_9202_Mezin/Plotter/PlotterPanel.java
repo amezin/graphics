@@ -53,9 +53,11 @@ public class PlotterPanel extends RenderPanel {
 		public void mouseDragged(MouseEvent e) {
 			int dx = e.getX() - mouseX;
 			int dy = e.getY() - mouseY;
+
+			updateMouseXY(e);
+
 			x.setValue(x.getValue() + dx);
 			y.setValue(y.getValue() - dy);
-			setMouseXY(e);
 		}
 
 		@Override
@@ -63,19 +65,23 @@ public class PlotterPanel extends RenderPanel {
 			if (e.getButton() != MouseEvent.BUTTON1) {
 				return;
 			}
+
 			removeMouseListener(this);
 			removeMouseMotionListener(this);
+
 			addMouseListener(picker);
 		}
 
 		public void pick(MouseEvent e) {
-			setMouseXY(e);
+			updateMouseXY(e);
+
 			removeMouseListener(picker);
+
 			addMouseListener(this);
 			addMouseMotionListener(this);
 		}
 
-		private void setMouseXY(MouseEvent e) {
+		private void updateMouseXY(MouseEvent e) {
 			mouseX = e.getX();
 			mouseY = e.getY();
 		}
