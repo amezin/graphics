@@ -5,6 +5,7 @@ import static FIT_9202_Mezin.Plotter.MathHelper.sgn;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,6 +16,7 @@ import FIT_9202_Mezin.Common.RenderPanel;
 public class PlotterPanel extends RenderPanel {
 
 	private class Focus extends MouseAdapter {
+
 		private final IntProperty x, y;
 		private final int color;
 		private static final int MARKER_R = 1;
@@ -70,6 +72,8 @@ public class PlotterPanel extends RenderPanel {
 			removeMouseMotionListener(this);
 
 			addMouseListener(picker);
+
+			setCursor(null);
 		}
 
 		public void pick(MouseEvent e) {
@@ -79,6 +83,8 @@ public class PlotterPanel extends RenderPanel {
 
 			addMouseListener(this);
 			addMouseMotionListener(this);
+
+			setCursor(BLANK_CURSOR);
 		}
 
 		private void updateMouseXY(MouseEvent e) {
@@ -106,7 +112,13 @@ public class PlotterPanel extends RenderPanel {
 
 	private static final int[] TURN = new int[] { -1, 1, -2, 2, -3, 3 };
 
+	private static final Cursor BLANK_CURSOR = Toolkit.getDefaultToolkit()
+			.createCustomCursor(
+					new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB),
+					new Point(0, 0), "Blank"); //$NON-NLS-1$
+
 	private final MouseAdapter picker = new MouseAdapter() {
+
 		private static final int PICK_R = 10;
 
 		@Override
@@ -132,6 +144,7 @@ public class PlotterPanel extends RenderPanel {
 
 		this.settings = settings;
 		settings.addChangeListener(new ChangeListener() {
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				repaint();
