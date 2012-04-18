@@ -21,6 +21,7 @@ public abstract class RenderPanel extends GroupBox {
 	public void paint(Graphics g) {
 		Rectangle clientRect = getClientRect();
 		if (clientRect.width <= 0 || clientRect.height <= 0) {
+			super.paint(g);
 			return;
 		}
 		if (buffer == null || buffer.getWidth() != clientRect.width
