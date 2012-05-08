@@ -15,9 +15,10 @@ public class ControlPanel extends GroupBox {
 			this.control = control;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			control.setValue(((MinMaxProperty<T>)e.getSource()).getValue());
+			control.setValue(((MinMaxProperty<T>) e.getSource()).getValue());
 		}
 	}
 
@@ -29,9 +30,10 @@ public class ControlPanel extends GroupBox {
 			this.property = property;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			property.setValue(((Control<T>)e.getSource()).getValue());
+			property.setValue(((Control<T>) e.getSource()).getValue());
 		}
 
 	}
