@@ -38,16 +38,10 @@ public class MinMaxTextFieldValidator<T> extends Validator {
 	}
 
 	public void setMaximum(Comparable<T> maximum) {
-		if (maximum == null) {
-			throw new NullPointerException();
-		}
 		this.maximum = maximum;
 	}
 
 	public void setMinimum(Comparable<T> minimum) {
-		if (minimum == null) {
-			throw new NullPointerException();
-		}
 		this.minimum = minimum;
 	}
 
@@ -66,7 +60,10 @@ public class MinMaxTextFieldValidator<T> extends Validator {
 		String text = field.getText();
 		try {
 			T value = valueClass.cast(formatter.stringToValue(text));
-			if (minimum.compareTo(value) > 0 || maximum.compareTo(value) < 0) {
+			if (minimum != null && minimum.compareTo(value) > 0) {
+				return false;
+			}
+			if (maximum != null && maximum.compareTo(value) < 0) {
 				return false;
 			}
 			return true;
