@@ -9,7 +9,7 @@ public class KnotSettings extends Settings {
 
 	public static final double ANGLE_MIN = 0.0, ANGLE_MAX = 360.0;
 	public static final double R_MIN = 0.0, R_MAX = 100000.0;
-	public static final double R_DEFAULT = 1.0;
+	public static final double R_DEFAULT = 500.0;
 
 	public static final String ANGLE_OX = "AngleOX"; //$NON-NLS-1$
 	public static final String ANGLE_OY = "AngleOY"; //$NON-NLS-1$

@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import FIT_9202_Mezin.Common.*;
 
@@ -20,6 +22,20 @@ public class KnotWindow extends MainWindow {
 	private final JRadioButton firstKnot, secondKnot;
 
 	private final KnotSettings settings;
+
+	private final Knot hermiteKnot, myKnot;
+
+	private final ChangeListener knotSwitcher = new ChangeListener() {
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			if (firstKnot.isSelected()) {
+				panel.setKnot(hermiteKnot);
+			} else if (secondKnot.isSelected()) {
+				panel.setKnot(myKnot);
+			}
+		}
+	};
 
 	public KnotWindow() {
 		super(TASK_NAME);
@@ -62,6 +78,12 @@ public class KnotWindow extends MainWindow {
 
 		constraints.weightx = 0.0;
 		getContentPane().add(knotType, constraints);
+
+		hermiteKnot = HermiteKnotBuilder.build();
+		myKnot = MyKnotBuilder.build();
+
+		firstKnot.addChangeListener(knotSwitcher);
+		secondKnot.addChangeListener(knotSwitcher);
 
 		firstKnot.setSelected(true);
 	}
