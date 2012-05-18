@@ -18,8 +18,6 @@ public class KnotDrawer {
 
 	private final double screenHalfW, screenHalfH;
 
-	private final double screenScale;
-
 	private final Random random = new Random();
 
 	public KnotDrawer(Knot knot, RenderBuffer target, double angleOX,
@@ -31,8 +29,6 @@ public class KnotDrawer {
 
 		screenHalfW = target.getWidth() * 0.5;
 		screenHalfH = target.getHeight() * 0.5;
-
-		screenScale = Math.max(target.getWidth(), target.getHeight());
 
 		rotationMatrix = new double[3][3];
 		fillRotationMatrix(-Math.toRadians(angleOY), Math.toRadians(angleOX));
@@ -69,16 +65,16 @@ public class KnotDrawer {
 		double psin = Math.sin(pitch);
 
 		rotationMatrix[0][0] = ycos;
-		rotationMatrix[0][1] = ysin;
-		rotationMatrix[0][2] = 0.0;
+		rotationMatrix[0][1] = 0.0;
+		rotationMatrix[0][2] = ysin;
 
-		rotationMatrix[1][0] = pcos * -ysin;
-		rotationMatrix[1][1] = pcos * ycos;
-		rotationMatrix[1][2] = psin;
+		rotationMatrix[1][0] = psin * ysin;
+		rotationMatrix[1][1] = pcos;
+		rotationMatrix[1][2] = psin * -ycos;
 
-		rotationMatrix[2][0] = psin * ysin;
-		rotationMatrix[2][1] = psin * -ycos;
-		rotationMatrix[2][2] = pcos;
+		rotationMatrix[2][0] = pcos * -ysin;
+		rotationMatrix[2][1] = psin;
+		rotationMatrix[2][2] = pcos * ycos;
 	}
 
 	private void project(double x, double y, double z, Point out) {
@@ -89,20 +85,27 @@ public class KnotDrawer {
 		double pz = rotationMatrix[2][0] * x + rotationMatrix[2][1] * y
 				+ rotationMatrix[2][2] * z;
 		pz += r;
-		double k = -r / pz * screenScale;
+		double k = -r / pz;
 		px *= k;
 		py *= k;
 
 		out.x = (int) Math.floor(screenHalfW + px);
 		out.y = (int) Math.floor(screenHalfH - py);
 
-		if (pz < 0.0) {
-			return;
+		if (out.x < 0) {
+			out.x = -1;
 		}
-		if (out.x < 0 || out.x >= target.getWidth()) {
-			return;
+		if (out.x >= target.getWidth()) {
+			out.x = target.getWidth();
 		}
-		if (out.y < 0 || out.y >= target.getHeight()) {
+		if (out.y < 0) {
+			out.y = -1;
+		}
+		if (out.y >= target.getHeight()) {
+			out.y = target.getHeight();
+		}
+		if (out.x < 0 || out.y < 0 || out.x >= target.getWidth()
+				|| out.y >= target.getHeight() || pz < 0.0) {
 			return;
 		}
 		target.setRGB(out.x, out.y, color);
