@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Plotter" default="package">
+<project name="Knot" default="package">
 	<target name="package">
 		<zip destfile="FIT_9202_Mezin_${ant.project.name}.zip">
 			<zipfileset dir="." includes="src/**" />
