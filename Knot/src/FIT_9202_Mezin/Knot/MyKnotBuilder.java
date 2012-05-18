@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class MyKnotBuilder extends KnotBuilder {
 
-	private static final double W = 500.0, H = 500.0, D = 500.0;
+	private static final double R = 300.0;
 	private static final double SOFTNESS = 1.0;
 	private static final int POINTS = 10;
 
@@ -15,9 +15,9 @@ public class MyKnotBuilder extends KnotBuilder {
 		Random r = new Random();
 
 		for (int i = 0; i < POINTS; i++) {
-			x.add((r.nextDouble() - 0.5) * W);
-			y.add((r.nextDouble() - 0.5) * H);
-			z.add((r.nextDouble() - 0.5) * D);
+			x.add(r.nextGaussian() * R);
+			y.add(r.nextGaussian() * R);
+			z.add(r.nextGaussian() * R);
 		}
 
 		MyKnotBuilder builder = new MyKnotBuilder();
