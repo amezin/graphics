@@ -11,9 +11,9 @@ public class MyCurve extends Curve {
 			double m2) {
 		double c0 = x1;
 		double c1 = m1;
-		double c3 = 10 * (x2 - x1) - 6 * m1 - 4 * m2;
-		double c4 = -15 * (x2 - x1) + 8 * m1 + 7 * m2;
-		double c5 = 6 * (x2 - x1) - 9 * m1 + 3 * m2;
+		double c3 = x2 - x1 - 1.5 * m1 + 0.5 * m2;
+		double c4 = 3.0 * (x2 - x1) - m1 - 2.0 * m2;
+		double c5 = -3.0 * (x2 - x1) + 1.5 * m1 + 1.5 * m2;
 		return (((c5 * t + c4) * t + c3) * t * t + c1) * t + c0;
 	}
 
